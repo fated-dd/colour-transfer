@@ -52,7 +52,7 @@ for i in range (0 , height):
                 pixel = 255
             sstore[i][j][n] = pixel
     time += 1
-    print(time)
+    print("Process: {}%".format(str((int((time/height)*1000)/10))) , end = '\r')
 print('Convertion completed')
 
 cv2.imwrite('Program/result/result.bmp',sstore)

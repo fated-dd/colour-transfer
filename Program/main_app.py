@@ -2,10 +2,9 @@ import numpy as np
 import cv2
 from sympy import Eq , symbols , solve
 
-s = cv2.imread('source/source1.bmp')
+s = cv2.imread('Program/source/source1.bmp')
 sstore = s
-
-t = cv2.imread('target/target1.bmp')
+t = cv2.imread('Program/target/target1.bmp')
 tstore = t
 
 s_mean, s_std = cv2.meanStdDev(s)
@@ -17,26 +16,27 @@ t_mean = np.hstack(np.around(t_mean,2))
 t_std = np.hstack(np.around(t_std,2))
 
 height , width , vac = s.shape
-
 alphao = []
 betao=[]
 
 for n in range (0 , vac):
             x = symbols('x')
             equation1 = Eq( (x**2) * s_std[n] - t_std[n] , 0)
-            alphao.append(solve(equation1))
+            result1 = solve(equation1)
+            alphao.append(result1)
             y = symbols('y')
             equation2 = Eq(t_mean[n] - s_mean[n]*x , 0)
-            betao.append(solve(equation2))
+            result2 = solve(equation2)
+            betao.append(result2)
 
 alpha = []
 beta = []
 
 for i in range (0 , len(alphao)):
-    alpha.append(alphao[i][1])
+    alpha.append(round(alphao[i][1] , 3))
 
 for i in range (0 , len(betao)):
-    beta.append ( betao[i][0] )
+    beta.append (round(betao[i][0] , 3))
 
 print("Converting Pitures...")
 
@@ -51,9 +51,8 @@ for i in range (0 , height):
             elif pixel > 255:
                 pixel = 255
             sstore[i][j][n] = pixel
-
 print('Convertion completed')
 
-cv2.imwrite('result/result.bmp',sstore)
+cv2.imwrite('Program/result/result.bmp',sstore)
 cv2.imshow('result' , sstore)
 cv2.waitKey(0)

@@ -39,7 +39,7 @@ for i in range (0 , len(betao)):
     beta.append (round(betao[i][0] , 3))
 
 print("Converting Pitures...")
-
+time = 0
 for i in range (0 , height):
     for j in range (0 , width):
         for n in range (0 , vac):
@@ -51,6 +51,8 @@ for i in range (0 , height):
             elif pixel > 255:
                 pixel = 255
             sstore[i][j][n] = pixel
+    time += 1
+    print(time)
 print('Convertion completed')
 
 cv2.imwrite('Program/result/result.bmp',sstore)
